@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 import 'first.dart';
 
@@ -14,6 +15,24 @@ class shayari extends StatefulWidget {
 }
 
 class _shayariState extends State<shayari> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    get();
+  }
+  get() async {
+    if (await Permission.contacts.request().isGranted) {
+    // Either the permission was already granted before or the user just granted it.
+    }
+
+// You can request multiple permissions at once.
+    Map<Permission, PermissionStatus> statuses = await [
+    Permission.camera,
+    Permission.storage,
+    ].request();
+    print(statuses[Permission.location]);
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
